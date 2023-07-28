@@ -5,6 +5,8 @@ const helmet = require('helmet');
 
 const mongoose = require('mongoose');
 
+const cors = require('cors');
+
 const cookieParser = require('cookie-parser');
 
 const { errors } = require('celebrate');
@@ -21,6 +23,15 @@ const { auth } = require('./middlewares/auth');
 const routers = require('./routes');
 
 const { hostname, PORT, mongodbUrl } = require('./constants');
+
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'http://dpw.nomoredomains.work',
+    'https://dpw.nomoredomains.work',
+  ],
+  credentials: true,
+}));
 
 app.use(express.json());
 
