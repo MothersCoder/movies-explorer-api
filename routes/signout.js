@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
-router.get('/signout', (req, res) => {
-  res.clearCookie('jwt').send({ message: 'Осуществлен выход из учетоной записи' });
+router.get('/', (req, res) => {
+  res.clearCookie('jwt').send({ message: 'Осуществлен выход из учетной записи' });
 });
 
 module.exports = router;

@@ -17,7 +17,7 @@ const { limiter } = require('./middlewares/limiter');
 
 const login = require('./routes/signin');
 const register = require('./routes/signup');
-const signout = require('./routes/signout');
+
 const { auth } = require('./middlewares/auth');
 
 const routers = require('./routes');
@@ -51,7 +51,6 @@ app.use(cookieParser());
 app.use(auth);
 
 app.use(routers);
-app.use(signout);
 
 app.use(errorLogger);
 

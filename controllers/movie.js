@@ -2,10 +2,13 @@ const Movie = require('../models/movie');
 const BadRequest = require('../errors/bad-req-err');
 const NotFound = require('../errors/not-found-err');
 const Forbidden = require('../errors/forbidden-err');
+const {
+  movieListErr, movieValidationErr, movieDeletErr, movieIdErr,
+} = require('../constants');
 
 const getUserMovies = (req, res, next) => {
   Movie.find({ owner: req.user._id })
-    .orFail(() => new NotFound('Фильмотеки у запрашваемого пользователя не существует или самого пользователя'))
+    .orFail(() => new NotFound(movieListErr))
     .then((movieList) => res.status(200).send(movieList))
     .catch(next);
 };
@@ -42,7 +45,7 @@ const addMovie = (req, res, next) => {
     .then((newMovie) => res.status(201).send(newMovie))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequest('При создании карточки часть полей была заполнена некорректно'));
+        next(new BadRequest(movieValidationErr));
         return;
       }
       next(err);
@@ -51,10 +54,10 @@ const addMovie = (req, res, next) => {
 
 const deleteMovie = (req, res, next) => {
   Movie.findById(req.params.id)
-    .orFail(() => new NotFound('Запрашиваемый фильм не найден'))
+    .orFail(() => new NotFound(movieIdErr))
     .then((movie) => {
       if (!movie.owner.equals(req.user._id)) {
-        next(new Forbidden('Вы не можете удалить карточку, которую создали не вы'));
+        next(new Forbidden(movieDeletErr));
       }
       return Movie.deleteOne(movie)
         .then(() => res.status(200).send('Фильм успешно удален'));
