@@ -29,6 +29,7 @@ app.use(cors({
     'http://localhost:3000',
     'http://dpw.nomoredomains.work',
     'https://dpw.nomoredomains.work',
+    'https://api.nomoreparties.co/beatfilm-movies',
   ],
   credentials: true,
 }));
