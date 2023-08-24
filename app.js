@@ -27,8 +27,9 @@ const { hostname, PORT, mongodbUrl } = require('./constants');
 app.use(cors({
   origin: [
     'http://localhost:3000',
-    'http://dpw.nomoredomains.work',
-    'https://dpw.nomoredomains.work',
+    'http://dpw.nomoredomains.sbs',
+    'https://dpw.nomoredomains.sbs',
+    'https://api.dpw.nomoredomains.sbs',
     'https://api.nomoreparties.co/beatfilm-movies',
   ],
   credentials: true,
